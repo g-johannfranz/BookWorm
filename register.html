@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookWorm Log-in Portal</title>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <!-- jQuery Validate plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.22.1/jquery.validate.min.js" integrity="sha512-qu7dMuIm2f0KcKZ3BOoP4c+Hn+r4E8PbD2Ro4rmKsOyheCxcwhzQpf6SojA76dn+owqfANzfTFUTkGA+HpHjOA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles-login.css">
+</head>
+<body>
+<div class="center-container">
+  <div class="login-box">
+    <h2 class="form-title">Create Your BookWorm Account</h2>
+    <form id="registerForm">
+
+      <!-- First + Last Name side by side -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" name="firstName" id="firstName" placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" name="lastName" id="lastName" placeholder="Enter last name">
+        </div>
+      </div>
+
+      <!-- Everything else stacked -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Enter email">
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" placeholder="Choose a username">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Enter password">
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Verify Password:</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Re-enter password">
+      </div>
+
+      <!-- Terms of Service -->
+        <input type="checkbox" name="terms" id="terms" required>
+        <label for="terms">I agree to the Terms of Service and Privacy Policy.</label>
+
+      <button type="submit">Register</button>
+    </form>
+    <div class="login-section">
+    <p>Already have an account?</p>
+    <a href="login.html" class="login-link">Log-in here.</a>
+    </div>
+  </div>
+</div>
+
+  <script>
+  $(function(){
+    $("#registerForm").validate({
+      rules: {
+        firstName: {
+          required: true,
+          minlength: 2
+        },
+        lastName: {
+          required: true,
+          minlength: 2
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        username: {
+          required: true,
+          minlength: 4
+        },
+        password: {
+          required: true,
+          minlength: 6
+        },
+        confirmPassword: {
+          required: true,
+          equalTo: "#password"
+        },
+        terms: "required"
+      },
+      messages: {
+        firstName: {
+          required: "First name is required",
+          minlength: "First name must be at least 3 characters"
+        },
+        lastName: {
+          required: "Last name is required",
+          minlength: "Last name must be at least 3 characters"
+        },
+        terms: "You must agree to the Terms of Service and Privacy Policy."
+      },
+      errorPlacement: function(error, element) {
+        if (element.attr("name") === "terms") {
+          error.insertAfter($("label[for='terms']"));
+        } else {
+          error.insertAfter(element);
+        }
+      },
+      submitHandler: function(form) {
+        window.location.href = "landing_page.html";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
